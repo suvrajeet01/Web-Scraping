@@ -1,0 +1,15 @@
+create a dataset by web scraping imdb top 250 movies sorted based on imdb rating
+
+10 columns|250 rows
+id =1-250
+movie name
+year of release
+imdb rating
+genre
+metascore
+director
+stars
+no. of votes
+gross
+
+web scraping is done using a python library called beautiful soup adn requests

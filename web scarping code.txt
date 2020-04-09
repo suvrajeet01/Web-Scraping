@@ -1,0 +1,61 @@
+#Web Scraping using BeautifuSoup and Requests
+
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+
+#sending request to webpage to read data from...
+
+url = 'https://www.imdb.com/search/title/?groups=top_250&sort=user_rating'
+page=requests.get(url)
+page.text
+
+soup=BeautifulSoup(page.text,'html.parser')
+
+#read ID
+
+id1 = []
+id_elem=soup.find_all(class_='lister-item-index unbold text-primary')
+
+for item in id_elem:
+    id1.append(item.text)
+
+id_elem
+
+id1
+
+#read movie name
+
+movie_name=[]
+
+movie_name_elem=soup.find_all('div',{'class':'lister-item-image float-left'})
+movie_name_elem
+
+for item in movie_name_elem:
+    movie_name.append(item.find('img').get('alt'))
+    
+movie_name
+
+
+
+
+#creating dataframe
+final_dataframe=[]
+for i,name,release,rating,genre,meta,director,stars,votes,gross in zip(id1,movie_name,year_of_release,imdb_rating,genre,meta_score,director,stars,no_of_votes,gross):
+    final_dataframe.append({'Id':i,'Movie Name':name,'Released':release,'IMDB Rating':rating,'Genre':genre,'Meta Score':meta,'Director':director,'Stars':stars,'Votes':votes,'Gross':gross})
+
+data=pd.DataFrame(final_dataframe)
+data
+
+
+
+
+
+
+#creating dataframe
+final_dataframe=[]
+for i,name in zip(id1,movie_name):
+    final_dataframe.append({'Id':i,'Movie Name':name})
+
+data=pd.DataFrame(final_dataframe)
+data
